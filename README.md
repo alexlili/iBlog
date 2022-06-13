@@ -1,92 +1,198 @@
-# iblog
+# iBlog
+基于 Node.js 的开源个人博客系统，现代化的 UI 和用户体验。支持桌面端和移动端访问，支持深色模式，支持 [Docker](https://www.docker.com/) 部署。  
+**不仅仅是博客，更是 Demo**，是适合新人入门学习的完整项目。
 
+## 目录
+- [界面预览](#界面预览)
+- [在线实例](#在线实例)
+- [分支说明](#分支说明)
+- [技术构成](#技术构成)
+- [快速开始](#快速开始)
+  * [准备条件](#准备条件)
+  * [安装依赖](#安装依赖)
+  * [启动站点](#启动站点)
+  * [Debug](#debug)
+- [系统设置](#系统设置)
+- [线上部署](#线上部署)
+  * [使用PM2](#使用pm2)
+  * [使用noginx](#使用noginx)
+- [Docker](#docker)
+  * [安装Docker](#安装docker)
+  * [制作镜像](#制作镜像)
+  * [创建容器](#创建容器)
+  * [容器管理](#容器管理)
+- [更新日志](#更新日志)
+- [TODO](#todo)
+- [许可协议](#许可协议)
 
+## 界面预览
+* 博客首页
+![首页](./preview_1.png)
+* 后台管理
+![后台](./preview_2.png)
+* 移动端
+![移动端](./preview_3.png)
 
-## Getting started
+## 在线实例
+我的博客 [https://skysun.name/](https://skysun.name/)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## 分支说明
+* 当前分支 (v2.0.0) 基于 [TypeScript](https://www.typescriptlang.org/) + [NuxtJS](https://nuxtjs.org/)
+* [v1.0.0](https://github.com/eshengsky/iBlog/tree/v1.0.0) 分支基于 JavaScript + [ExpressJS](https://expressjs.com/)
+* [iBlog.Net](https://github.com/eshengsky/iBlog.Net) 基于 C# + [ASP.NET](https://dotnet.microsoft.com/apps/aspnet)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## 技术构成
+* 开发语言 [TypeScript](https://www.typescriptlang.org/)
+* 服务端 [Node.js](https://nodejs.org/)
+* SSR框架 [NuxtJS](https://nuxtjs.org/)
+* 前端框架 [Vue](https://vuejs.org/)
+* 组件库 [Ant Design of Vue](https://www.antdv.com/docs/vue/introduce-cn/)
+* Web字体 [Font Awesome](https://fontawesome.com/)
+* 持久化 [MongoDB](https://www.mongodb.org/)
+* 身份验证 [@nuxtjs/auth](https://auth.nuxtjs.org/)
 
-## Add your files
+## 快速开始
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### 准备条件
 
+安装 [Node.js](https://nodejs.org/en/download/) (v8 以上版本)、[MongoDB](https://www.mongodb.org/downloads/)。  
+推荐安装 [Yarn](https://yarnpkg.com/) 而非 npm 以进行包管理。
+
+### 安装依赖
+```Shell
+$ yarn
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/alexlili1/iblog.git
-git branch -M main
-git push -uf origin main
+
+### 启动站点
+
+* 开发模式
+
+```Shell
+$ yarn run dev
 ```
 
-## Integrate with your tools
+* 生产模式
 
-- [ ] [Set up project integrations](https://gitlab.com/alexlili1/iblog/-/settings/integrations)
+先编译项目
+```shell
+$ yarn run build
+```
 
-## Collaborate with your team
+再启动站点
+```shell
+$ yarn start
+```
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+打开浏览器，访问 [http://localhost:9000/](http://localhost:9000)
 
-## Test and Deploy
+### Debug
+* 要启动前端代码调试，请直接在 Chrome Dev Tools - Sources 面板中进行。
 
-Use the built-in continuous integration in GitLab.
+* 要启动服务端代码调试，请以如下命令启动服务，然后点击 Chrome  Dev Tools 左上角的 Node.js 按钮，就可以像调试前端代码一样调试服务端了。
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+```shell
+$ node --inspect node_modules/.bin/nuxt-ts
+```
 
-***
 
-# Editing this README
+#### Enjoy it! :smile:
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## 系统设置
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+根据实际情况修改 `/blog.config.ts` 配置文件，修改后需要重启服务器才能生效。  
+参数说明：
 
-## Name
-Choose a self-explaining name for your project.
+#### host
+`String` 类型，主机名，配置为 `0.0.0.0` 表示监听任意主机。
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+#### port
+`Number` 类型，端口号。
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+#### enableHTTPS
+`Boolean` 类型，是否启用 HTTPS。
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+#### mongoUrl
+`String` 类型，MongoDB 链接。
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+#### jwtSecret
+`String` 类型，[JWT](https://github.com/auth0/node-jsonwebtoken) 秘钥。
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## 线上部署
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### 使用PM2
+推荐使用 [pm2](https://pm2.keymetrics.io/) 进行 Node.js 的进程管理和持久运行。
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+#### 安装
+```Shell
+$ yarn global add pm2
+```
+#### 启动
+```Shell
+$ pm2 start pm2.json
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### 使用noginx
+[noginx](https://github.com/eshengsky/noginx) 是基于 Node.js 的 HTTP 及反向代理服务器（类似 nginx），如果你有多台 iBlog 服务器实例，你可以使用 [noginx](https://github.com/eshengsky/noginx) 进行代理转发和负载均衡。
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+## Docker
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+iBlog 支持使用 [Docker](https://www.docker.com/) 容器快速部署并启动项目。
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### 安装Docker
 
-## License
-For open source projects, say how it is licensed.
+在 [官方下载页面](https://www.docker.com/get-started) 选择对应平台的 Docker Desktop 下载并安装。
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### 制作镜像
+
+在项目根目录下执行如下命令创建镜像文件：
+```Shell
+$ yarn run dockerImage
+```
+
+如果创建成功，你可以使用如下命令查看到生成的镜像：
+```Shell
+$ docker image ls
+```
+
+### 创建容器
+
+执行如下命令创建容器：
+```Shell
+$ yarn run dockerRun
+```
+
+### 容器管理
+
+通过 Docker Desktop 执行启动、停止、查看日志等操作。
+![Docker Desktop](./preview_4.png)
+
+## 更新日志
+
+请直接查看 [Commit](https://github.com/eshengsky/iBlog/commits/master) 记录。
+
+## [TODO](./TODO.md)
+
+项目的后续更新计划，欢迎提交 [PR](https://github.com/eshengsky/iBlog/pulls)。
+
+## 许可协议
+MIT License
+
+Copyright (c) 2020 Sky.Sun 孙正华
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
