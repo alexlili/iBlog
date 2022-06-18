@@ -31,9 +31,9 @@
         @click="() => (drawer = true)"
       />
       <h4>
-        <nuxt-link :to="`//${post.category.alias}/${post.alias}`" :title="post.title">
+      <a :href="`/blog/${post.category.alias}/${post.alias}`" :title="post.title">
           {{ post.title }}
-        </nuxt-link>
+        </a>
       </h4>
       <div class="item-footer1">
         <nuxt-link :to="post.category.alias ? `//${post.category.alias}` : '/'" exact active-class="active" :title="`分类: ${post.category.cateName}`">
