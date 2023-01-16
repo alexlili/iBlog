@@ -9,11 +9,18 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
+      
+    - name: Install and Build
+        run: |
+          npm ci
+          npm run build
+          
     - name: Build and Deploy
       uses: JamesIves/github-pages-deploy-action@v4
-      env:
-        ACCESS_TOKEN: ${{ secrets.IBLOG_ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build
-        BUILD_SCRIPT: npm install && npm run build
+      with:
+        folder: build
+        clean: true
+        ssh-key: ${{ secrets.IBLOG_ACCESS_TOKEN }}
+        clean-exclude: |
+            special-file.txt
+            some/*.txt
