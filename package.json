@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "基于 Node.js 的开源个人博客系统。",
   "author": "LIGUANGYAO",
+  "homepage": "https://alexlili.github.io/iBlog",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .ts,.js,.vue .",
