@@ -12,7 +12,7 @@ jobs:
       
       - name: Install and Build
         run: |
-          npm install 
+          yarn 
           npm run build
       - name: Upload Artifacts 🔺 # The project is then uploaded as an artifact named 'site'.
         uses: actions/upload-artifact@v1
